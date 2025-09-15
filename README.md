@@ -1,74 +1,97 @@
-# Ex-4 Rail-Fence-Program
+## EX : 5 IMPLEMENTATION OF RAIL FENCE CIPHER
+## AIM:
 
-# IMPLEMENTATION OF RAIL FENCE – ROW & COLUMN TRANSFORMATION TECHNIQUE
+To develop a simple C program to implement Rail Fence Cipher.
 
-# AIM:
 
-# To write a C program to implement the rail fence transposition technique.
+## ALGORITHM:
+#### 1.	To perform the Encryption Process
+#### •	Input the plaintext string from the user.
+#### •	Calculate the length of the plaintext.
+#### •	Create the ciphertext using two rails:
+#### a.	First, collect characters at even indices (i.e., 0, 2, 4, …).
+#### b.	Then, collect characters at odd indices (i.e., 1, 3, 5, …).
+#### c.	Combine both parts to form the ciphertext.
+#### •	Display the encrypted ciphertext.
 
-# DESCRIPTION:
+#### 2.	To perform the Decryption Process:
+#### •	Calculate the length of the ciphertext.
+#### •	Find the midpoint:
+#### ◦	a. If the length is even, midpoint = length / 2.
+#### ◦	b. If the length is odd, midpoint = (length / 2) + 1.
+#### •	Reconstruct the original message:
+#### a.	Take the first half as characters from even positions.
+#### b.	Take the second half as characters from odd positions.
+#### c.	Merge both using alternating positions.
 
-In the rail fence cipher, the plain text is written downwards and diagonally on successive "rails" of an imaginary fence, then moving up when we reach the bottom rail. When we reach the top rail, the message is written downwards again until the whole plaintext is written out. The message is then read off in rows.
+#### 3.	Display the decrypted plaintext.
 
-# ALGORITHM:
-
-STEP-1: Read the Plain text.
-STEP-2: Arrange the plain text in row columnar matrix format.
-STEP-3: Now read the keyword depending on the number of columns of the plain text.
-STEP-4: Arrange the characters of the keyword in sorted order and the corresponding columns of the plain text.
-STEP-5: Read the characters row wise or column wise in the former order to get the cipher text.
-
-# PROGRAM
-~~~
+## PROGRAM:
+```
 #include <stdio.h>
- #include <string.h>
- int main() {
- int i, j, k, l;
- char a[20], c[20], d[20];
- printf("\n\t\tRAIL FENCE TECHNIQUE\n");
- // Safely getting input string using fgets instead of gets
- printf("\nEnter the input string: ");
- fgets(a, sizeof(a), stdin);
- // Removing the newline character if it exists
-a[strcspn(a, "\n")] = '\0';
- l = strlen(a); // Get the length of the input string
- // Rail fence encryption: first collect even indices, then odd
- for (i = 0, j = 0; i < l; i++) {
- if (i % 2 == 0) {
- c[j++] = a[i];
- }
- }
- for (i = 0; i < l; i++) {
- if (i % 2 == 1) {
- c[j++] = a[i];
- }
- }
- c[j] = '\0'; // Null-terminate the encrypted string
- printf("\nCipher text after applying rail fence: %s\n", c);
- // Rail fence decryption
- if (l % 2 == 0) {
- k =l / 2;
- } else {
- k =(l / 2) + 1;
- }
- // Reconstructing the original text
- for (i = 0, j = 0; i < k; i++) {
- d[j] = c[i];
- j += 2;
- }
- for (i = k, j = 1; i < l; i++) {
-d[j] = c[i];
- j += 2;
- }
- d[l] = '\0'; // Null-terminate the decrypted string
- printf("\nText after decryption: %s\n", d);
- return 0; // Properly return from main
- }
-~~~
+#include <string.h>
 
-# OUTPUT
-<img width="1873" height="915" alt="{C019DEF8-0413-4939-A0DB-4F9AACBB53F6}" src="https://github.com/user-attachments/assets/d2b01de4-6322-48ca-9175-527cfd20079c" />
+int main()
+{
+    int i, j, k, l;
+    char a[20], c[20], d[20];
+    
+    printf("\n\t\tRAIL FENCE TECHNIQUE\n");
+    printf("\nEnter the input string: ");
+    fgets(a, sizeof(a), stdin);
+
+    a[strcspn(a, "\n")] = '\0';
+    l = strlen(a); 
+
+    j = 0;
+    for (i = 0; i < l; i += 2)
+    {
+        c[j++] = a[i];
+}
+    for (i = 1; i < l; i += 2)
+    {
+        c[j++] = a[i];
+    }
+    c[j] = '\0'; 
+    
+    printf("\nCipher text after applying rail fence: %s\n", c);
+    
+    if (l % 2 == 0)
+    {
+        k = l / 2;
+    }
+    else
+    {
+        k = (l / 2) + 1;
+    }
+    
+    j = 0;
+
+    for (i = 0; i < k; i++)
+    {
+        d[j] = c[i];
+        j += 2;
+    }
+    
+    j = 1;
+ 
+    for (i = k; i < l; i++)
+    {
+        d[j] = c[i];
+        j += 2;
+    }
+    d[l] = '\0'; 
+    
+    printf("\nText after decryption: %s\n", d);
+    
+       
+    return 0;
+}
+```
+## OUTPUT:
+
+<img width="1648" height="988" alt="{BDF07A83-C3C4-4DD6-B7F5-C246269BC57D}" src="https://github.com/user-attachments/assets/31c7865b-aa65-4e7f-b142-95c9a20ee5a3" />
 
 
-# RESULT
-The program is executed successfully.
+## RESULT:
+The program implementing the Rail Fence cipher for encryption and decryption has been successfully	executed,	and	the	results	have	been	verified.
